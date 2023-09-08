@@ -22,7 +22,7 @@ sudo mkdir -p /Library/Icons
 cd $AGORA_HOME
 
 # install prerequisites
-pkg install bash gmake cmake libffcall libxml2 libxslt openssl \
+sudo pkg install bash gmake cmake libffcall libxml2 libxslt openssl \
     libiconv giflib aspell cups libaudiofile portaudio libart_lgpl \
     windowmaker cairo libsvg-cairo harfbuzz-cairo libdispatch
 
