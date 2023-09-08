@@ -100,7 +100,7 @@ cd $AGORA_HOME
 [ -d "libs-corebase" ] || git clone https://github.com/AgoraDesktop/libs-corebase.git
 cd libs-corebase
 git pull --rebase --autostash
-CFLAGS=-I/Library/Headers LDFLAGS=-L/Library/Libraries ./configure
+CFLAGS=$(gnustep-config --objc-flags) LDFLAGS=$(gnustep-config --objc-libs) ./configure
 gmake -j8
 sudo gmake install
 gmake clean
