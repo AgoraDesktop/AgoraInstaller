@@ -26,14 +26,11 @@ sudo pkg install bash gmake cmake libffcall libxml2 libxslt openssl \
     libiconv giflib aspell cups libaudiofile portaudio libart_lgpl \
     windowmaker cairo libsvg-cairo harfbuzz-cairo libdispatch icu xorg
 
-# install gnustep-make
+# install gnustep-make (First pass)
 [ -d "tools-make" ] || git clone https://github.com/AgoraDesktop/tools-make.git
 cd tools-make
 git pull --rebase --autostash
-./configure \
-	--with-layout=agora \
-	--with-library-combo=ng-gnu-gnu \
-	--enable-objc-arc
+./configure --with-layout=agora
 gmake
 sudo gmake install && sudo gmake clean
 cd $AGORA_HOME
@@ -55,6 +52,18 @@ rm -rf Build
 cd $AGORA_HOME
 
 sudo -E ldconfig
+
+# install gnustep-make (second pass)
+cd tools-make
+./configure \
+	--with-layout=agora \
+	--with-library-combo=ng-gnu-gnu \
+	--enable-objc-arc
+gmake
+sudo gmake install && sudo gmake clean
+cd $AGORA_HOME
+# Load the shell environment for gnustep-make
+. /System/Library/Makefiles/GNUstep.sh
 
 # install gnustep-base
 [ -d "libs-base" ] || git clone https://github.com/AgoraDesktop/libs-base.git
