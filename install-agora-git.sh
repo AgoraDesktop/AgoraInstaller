@@ -12,7 +12,9 @@ sudo mkdir -p /Library/Icons
 pushd $HOME/Development/Agora
 
 # install prerequisites
-pkg install bash gmake cmake libffcall libxml2 libxslt openssl libiconv giflib aspell cups libaudiofile portaudio libart_lgpl windowmaker cairo libsvg-cairo harfbuzz-cairo
+pkg install bash gmake cmake libffcall libxml2 libxslt openssl \
+    libiconv giflib aspell cups libaudiofile portaudio libart_lgpl \
+    windowmaker cairo libsvg-cairo harfbuzz-cairo libdispatch
 
 # install gnustep-make
 git clone https://github.com/AgoraDesktop/tools-make.git
@@ -68,6 +70,15 @@ popd
 git clone https://github.com/AgoraDesktop/apps-gworkspace.git
 pushd apps-gworkspace
 ./configure
+gmake -j8
+sudo gmake install
+gmake clean
+popd
+
+# install libs-corebase
+git clone https://github.com/AgoraDesktop/libs-corebase.git
+pushd libs-corebase
+CFLAGS=-I/Library/Headers LDFLAGS=-L/Library/Libraries ./configure
 gmake -j8
 sudo gmake install
 gmake clean
