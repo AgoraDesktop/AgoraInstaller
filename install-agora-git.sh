@@ -27,9 +27,10 @@ sudo pkg install bash gmake cmake libffcall libxml2 libxslt openssl \
     windowmaker cairo libsvg-cairo harfbuzz-cairo libdispatch
 
 # install gnustep-make
-git clone https://github.com/AgoraDesktop/tools-make.git
+[ -d "tools-make" ] || git clone https://github.com/AgoraDesktop/tools-make.git
 cd tools-make
 ./configure --with-layout=agora
+git pull --rebase --autostash
 gmake
 sudo gmake install && sudo gmake clean
 cd $AGORA_HOME
@@ -37,8 +38,9 @@ cd $AGORA_HOME
 . /System/Library/Makefiles/GNUstep.sh
 
 # install libobjc2
-git clone https://github.com/AgoraDesktop/libobjc2.git
+[ -d "libobjc2" ] || git clone https://github.com/AgoraDesktop/libobjc2.git
 cd libobjc2
+git pull --rebase --autostash
 git submodule update --init
 mkdir Build
 cd Build 
@@ -49,9 +51,12 @@ cd ..
 rm -rf Build
 cd $AGORA_HOME
 
+sudo -E ldconfig
+
 # install gnustep-base
-git clone https://github.com/AgoraDesktop/libs-base.git
+[ -d "libs-base" ] || git clone https://github.com/AgoraDesktop/libs-base.git
 cd libs-base
+git pull --rebase --autostash
 ./configure
 gmake -j8
 sudo gmake install
@@ -59,8 +64,9 @@ gmake clean
 cd $AGORA_HOME
 
 # install gnustep-gui
-git clone https://github.com/AgoraDesktop/libs-gui.git
+[ -d "libs-gui" ] || git clone https://github.com/AgoraDesktop/libs-gui.git
 cd libs-gui
+git pull --rebase --autostash
 ./configure
 gmake -j8
 sudo gmake install
@@ -68,8 +74,9 @@ gmake clean
 cd $AGORA_HOME
 
 # install gnustep-back
-git clone https://github.com/AgoraDesktop/libs-back.git
+[ -d "libs-back" ] || git clone https://github.com/AgoraDesktop/libs-back.git
 cd libs-back
+git pull --rebase --autostash
 ./configure --enable-server=x11 --enable-graphics=cairo
 gmake -j8
 sudo gmake install
@@ -77,8 +84,9 @@ gmake clean
 cd $AGORA_HOME
 
 # install GWorkspace
-git clone https://github.com/AgoraDesktop/apps-gworkspace.git
+[ -d "apps-gworkspace" ] || git clone https://github.com/AgoraDesktop/apps-gworkspace.git
 cd apps-gworkspace
+git pull --rebase --autostash
 ./configure
 gmake -j8
 sudo gmake install
@@ -86,8 +94,9 @@ gmake clean
 cd $AGORA_HOME
 
 # install libs-corebase
-git clone https://github.com/AgoraDesktop/libs-corebase.git
+[ -d "libs-corebase" ] || git clone https://github.com/AgoraDesktop/libs-corebase.git
 cd libs-corebase
+git pull --rebase --autostash
 CFLAGS=-I/Library/Headers LDFLAGS=-L/Library/Libraries ./configure
 gmake -j8
 sudo gmake install
@@ -95,8 +104,9 @@ gmake clean
 cd $AGORA_HOME
 
 #install Terminal.app
-git clone https://github.com/AgoraDesktop/apps-terminal.git
+[ -d "apps-terminal" ] || git clone https://github.com/AgoraDesktop/apps-terminal.git
 cd apps-terminal
+git pull --rebase --autostash
 gmake -j8
 sudo gmake install
 gmake clean
