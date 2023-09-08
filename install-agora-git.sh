@@ -1,8 +1,15 @@
 #!/usr/local/bin/bash
 
 pushd $HOME
-mkdir -p ~/Development/Agora
-pushd ~/Development/Agora
+
+mkdir -p $HOME/Development/Agora
+mkdir -p $HOME/Documents
+mkdir -p $HOME/Library/Wallpaper
+mkdir -p $HOME/Library/Icons
+sudo mkdir -p /Library/Wallpaper
+sudo mkdir -p /Library/Icons
+
+pushd $HOME/Development/Agora
 
 # install prerequisites
 pkg install bash gmake cmake libffcall libxml2 libxslt openssl libiconv giflib aspell cups libaudiofile portaudio libart_lgpl windowmaker cairo libsvg-cairo harfbuzz-cairo
