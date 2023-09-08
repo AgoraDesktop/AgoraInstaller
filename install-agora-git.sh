@@ -1,15 +1,25 @@
-#!/usr/local/bin/bash
+#!/bin/sh
 
-pushd $HOME
+# Terminate script on error
+set -e
 
-mkdir -p $HOME/Development/Agora
+CWD=$(pwd)
+DEV_HOME=${DEV_HOME:-$HOME/Development}
+AGORA_HOME=$DEV_HOME/Agora
+
+# Verify that sudo is installed
+[ -x "$(which sudo)" ] || (echo "This script requires sudo to be installed." && exit 1)
+
+cd $HOME
+
+mkdir -p $AGORA_HOME
 mkdir -p $HOME/Documents
 mkdir -p $HOME/Library/Wallpaper
 mkdir -p $HOME/Library/Icons
 sudo mkdir -p /Library/Wallpaper
 sudo mkdir -p /Library/Icons
 
-pushd $HOME/Development/Agora
+cd $AGORA_HOME
 
 # install prerequisites
 pkg install bash gmake cmake libffcall libxml2 libxslt openssl \
@@ -18,17 +28,17 @@ pkg install bash gmake cmake libffcall libxml2 libxslt openssl \
 
 # install gnustep-make
 git clone https://github.com/AgoraDesktop/tools-make.git
-pushd tools-make
+cd tools-make
 ./configure --with-layout=agora
 gmake
 sudo gmake install && sudo gmake clean
-popd
+cd $AGORA_HOME
 # Load the shell environment for gnustep-make
 . /System/Library/Makefiles/GNUstep.sh
 
 # install libobjc2
 git clone https://github.com/AgoraDesktop/libobjc2.git
-pushd libobjc2
+cd libobjc2
 git submodule update --init
 mkdir Build
 cd Build 
@@ -37,63 +47,61 @@ gmake
 sudo gmake install
 cd ..
 rm -rf Build
-popd
+cd $AGORA_HOME
 
 # install gnustep-base
 git clone https://github.com/AgoraDesktop/libs-base.git
-pushd libs-base
+cd libs-base
 ./configure
 gmake -j8
 sudo gmake install
 gmake clean
-popd
+cd $AGORA_HOME
 
 # install gnustep-gui
 git clone https://github.com/AgoraDesktop/libs-gui.git
-pushd libs-gui
+cd libs-gui
 ./configure
 gmake -j8
 sudo gmake install
 gmake clean
-popd
+cd $AGORA_HOME
 
 # install gnustep-back
 git clone https://github.com/AgoraDesktop/libs-back.git
-pushd libs-back
+cd libs-back
 ./configure --enable-server=x11 --enable-graphics=cairo
 gmake -j8
 sudo gmake install
 gmake clean
-popd
+cd $AGORA_HOME
 
 # install GWorkspace
 git clone https://github.com/AgoraDesktop/apps-gworkspace.git
-pushd apps-gworkspace
+cd apps-gworkspace
 ./configure
 gmake -j8
 sudo gmake install
 gmake clean
-popd
+cd $AGORA_HOME
 
 # install libs-corebase
 git clone https://github.com/AgoraDesktop/libs-corebase.git
-pushd libs-corebase
+cd libs-corebase
 CFLAGS=-I/Library/Headers LDFLAGS=-L/Library/Libraries ./configure
 gmake -j8
 sudo gmake install
 gmake clean
-popd
+cd $AGORA_HOME
 
 #install Terminal.app
 git clone https://github.com/AgoraDesktop/apps-terminal.git
-pushd apps-terminal
+cd apps-terminal
 gmake -j8
 sudo gmake install
 gmake clean
-popd
 
-popd
-
+cd $PWD
 
 # Set up user defaults
 defaults write NSGlobalDomain GSFirstControlKey Control_L 
