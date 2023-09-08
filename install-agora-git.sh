@@ -24,7 +24,7 @@ cd $AGORA_HOME
 # install prerequisites
 sudo pkg install bash gmake cmake libffcall libxml2 libxslt openssl \
     libiconv giflib aspell cups libaudiofile portaudio libart_lgpl \
-    windowmaker cairo libsvg-cairo harfbuzz-cairo libdispatch icu
+    windowmaker cairo libsvg-cairo harfbuzz-cairo libdispatch icu xorg
 
 # install gnustep-make
 [ -d "tools-make" ] || git clone https://github.com/AgoraDesktop/tools-make.git
