@@ -87,5 +87,42 @@ defaults write NSGlobalDomain GSCommandKeyString "⌘"
 defaults write NSGlobalDomain NSInterfaceStyleDefault NSMacintoshInterfaceStyle
 defaults write NSGlobalDomain NSMenuInterfaceStyle NSMacintoshInterfaceStyle
 
-echo "The Agora Desktop is now installed. You will find the source code under $HOME/Development/Agora."
+defaults write NSGlobalDomain GSFileBrowserHideDotFiles YES
 
+cat > /tmp/agora.root.hidden <<EOF
+bin
+boot
+dev
+etc
+lib
+libexec
+media
+mnt
+net
+nvraid
+proc
+rescue
+root
+sbin
+tmp
+usr
+var
+zroot
+COPYRIGHT
+entropy
+sys
+EOF
+
+sudo mv /tmp/agora.root.hidden /.hidden
+
+cat > $HOME/.xinitrc <<EOF
+wmaker &
+exec GWorkspace
+EOF
+
+cat > $HOME/.hidden <<EOF
+nohup.out
+GNUstep
+EOF
+
+echo "The Agora Desktop is now installed. You will find the source code under $HOME/Development/Agora."
