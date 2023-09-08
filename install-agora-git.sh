@@ -57,3 +57,12 @@ sudo gmake install
 gmake clean
 popd
 
+# install GWorkspace
+git clone https://github.com/AgoraDesktop/apps-gworkspace.git
+pushd apps-gworkspace
+./configure
+gmake -j8
+sudo gmake install
+gmake clean
+popd
+
