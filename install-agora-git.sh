@@ -1,11 +1,11 @@
 #!/usr/local/bin/bash
 
-pushd $(HOME)
+cd
 mkdir -p Development/Agora
-cd Development/Agora
+cd ~/Development/Agora
 
 # install prerequisites
-pkg install bash gmake cmake libffcall libxml2 libxslt openssl libiconv giflib aspell cups libaudiofile portaudio libart_lgpl windowmaker 
+pkg install bash gmake cmake libffcall libxml2 libxslt openssl libiconv giflib aspell cups libaudiofile portaudio libart_lgpl windowmaker cairo libsvg-cairo harfbuzz-cairo
 
 # install gnustep-make
 git clone https://github.com/AgoraDesktop/tools-make.git
@@ -14,7 +14,6 @@ pushd tools-make
 gmake
 sudo gmake install && sudo gmake clean
 popd
-
 # Load the shell environment for gnustep-make
 . /System/Library/Makefiles/GNUstep.sh
 
@@ -35,6 +34,24 @@ popd
 git clone https://github.com/AgoraDesktop/libs-base.git
 pushd libs-base
 ./configure
+gmake -j8
+sudo gmake install
+gmake clean
+popd
+
+# install gnustep-gui
+git clone https://github.com/AgoraDesktop/libs-gui.git
+pushd libs-gui
+./configure
+gmake -j8
+sudo gmake install
+gmake clean
+popd
+
+# install gnustep-back
+git clone https://github.com/AgoraDesktop/libs-back.git
+pushd libs-back
+./configure --enable-server=x11 --enable-graphics=cairo
 gmake -j8
 sudo gmake install
 gmake clean
