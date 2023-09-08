@@ -66,3 +66,22 @@ sudo gmake install
 gmake clean
 popd
 
+
+# Set up user defaults
+defaults write NSGlobalDomain GSBackend libgnustep-xlib
+defaults write NSGlobalDomain GSFirstControlKey Control_L 
+defaults write NSGlobalDomain GSSecondControlKey Control_R
+defaults write NSGlobalDomain GSFirstCommandKey Super_L
+defaults write NSGlobalDomain GSSecondCommandKey Super_R
+defaults write NSGlobalDomain GSFirstAlternateKey Alt_L
+defaults write NSGlobalDomain GSSecondAlternateKey Alt_R
+
+defaults write NSGlobalDomain UseWindowMakerIcons YES
+
+defaults write NSGlobalDomain GSControlKeyString "^"
+defaults write NSGlobalDomain GSAlternateKeyString "⌥"
+defaults write NSGlobalDomain GSShiftKeyString "⇧"
+defaults write NSGlobalDomain GSCommandKeyString "⌘"
+
+defaults write NSGlobalDomain NSInterfaceStyleDefault NSMacintoshInterfaceStyle
+defaults write NSGlobalDomain NSMenuInterfaceStyle NSMacintoshInterfaceStyle
