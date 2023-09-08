@@ -70,7 +70,6 @@ popd
 
 
 # Set up user defaults
-defaults write NSGlobalDomain GSBackend libgnustep-xlib
 defaults write NSGlobalDomain GSFirstControlKey Control_L 
 defaults write NSGlobalDomain GSSecondControlKey Control_R
 defaults write NSGlobalDomain GSFirstCommandKey Super_L
