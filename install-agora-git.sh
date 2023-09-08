@@ -61,7 +61,7 @@ sudo -E ldconfig
 cd libs-base
 git pull --rebase --autostash
 ./configure
-gmake -j8
+gmake -j`nproc`
 sudo gmake install
 gmake clean
 cd $AGORA_HOME
@@ -71,7 +71,7 @@ cd $AGORA_HOME
 cd libs-gui
 git pull --rebase --autostash
 ./configure
-gmake -j8
+gmake -j`nproc`
 sudo gmake install
 gmake clean
 cd $AGORA_HOME
@@ -81,7 +81,7 @@ cd $AGORA_HOME
 cd libs-back
 git pull --rebase --autostash
 ./configure --enable-server=x11 --enable-graphics=cairo
-gmake -j8
+gmake -j`nproc`
 sudo gmake install
 gmake clean
 cd $AGORA_HOME
@@ -91,7 +91,7 @@ cd $AGORA_HOME
 cd apps-gworkspace
 git pull --rebase --autostash
 ./configure
-gmake -j8
+gmake -j`nproc`
 sudo gmake install
 gmake clean
 cd $AGORA_HOME
@@ -101,7 +101,7 @@ cd $AGORA_HOME
 cd libs-corebase
 git pull --rebase --autostash
 CFLAGS=$(gnustep-config --objc-flags) LDFLAGS=$(gnustep-config --objc-libs) ./configure
-gmake -j8
+gmake -j`nproc`
 sudo gmake install
 gmake clean
 cd $AGORA_HOME
@@ -110,7 +110,7 @@ cd $AGORA_HOME
 [ -d "apps-terminal" ] || git clone https://github.com/AgoraDesktop/apps-terminal.git
 cd apps-terminal
 git pull --rebase --autostash
-gmake -j8
+gmake -j`nproc`
 sudo gmake install
 gmake clean
 
