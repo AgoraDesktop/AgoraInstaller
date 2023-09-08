@@ -29,8 +29,11 @@ sudo pkg install bash gmake cmake libffcall libxml2 libxslt openssl \
 # install gnustep-make
 [ -d "tools-make" ] || git clone https://github.com/AgoraDesktop/tools-make.git
 cd tools-make
-./configure --with-layout=agora
 git pull --rebase --autostash
+./configure \
+	--with-layout=agora \
+	--with-library-combo=ng-gnu-gnu \
+	--enable-objc-arc
 gmake
 sudo gmake install && sudo gmake clean
 cd $AGORA_HOME
