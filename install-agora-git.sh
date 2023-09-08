@@ -1,8 +1,8 @@
 #!/usr/local/bin/bash
 
-cd
-mkdir -p Development/Agora
-cd ~/Development/Agora
+pushd $HOME
+mkdir -p ~/Development/Agora
+pushd ~/Development/Agora
 
 # install prerequisites
 pkg install bash gmake cmake libffcall libxml2 libxslt openssl libiconv giflib aspell cups libaudiofile portaudio libart_lgpl windowmaker cairo libsvg-cairo harfbuzz-cairo
@@ -66,6 +66,8 @@ sudo gmake install
 gmake clean
 popd
 
+popd
+
 
 # Set up user defaults
 defaults write NSGlobalDomain GSBackend libgnustep-xlib
@@ -85,3 +87,6 @@ defaults write NSGlobalDomain GSCommandKeyString "⌘"
 
 defaults write NSGlobalDomain NSInterfaceStyleDefault NSMacintoshInterfaceStyle
 defaults write NSGlobalDomain NSMenuInterfaceStyle NSMacintoshInterfaceStyle
+
+echo "The Agora Desktop is now installed. You will find the source code under $HOME/Development/Agora."
+
