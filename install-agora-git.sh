@@ -84,6 +84,14 @@ sudo gmake install
 gmake clean
 popd
 
+#install Terminal.app
+git clone https://github.com/AgoraDesktop/apps-terminal.git
+pushd apps-terminal
+gmake -j8
+sudo gmake install
+gmake clean
+popd
+
 popd
 
 
