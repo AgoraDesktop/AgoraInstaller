@@ -144,7 +144,9 @@ defaults write NSGlobalDomain NSInterfaceStyleDefault NSMacintoshInterfaceStyle
 defaults write NSGlobalDomain NSMenuInterfaceStyle NSMacintoshInterfaceStyle
 
 defaults write NSGlobalDomain GSFileBrowserHideDotFiles YES
+
 defaults write GWorkspace GSSuppressAppIcon YES
+defaults write GWorkspace dockstyle '<*I1>'
 
 cat > /tmp/agora.root.hidden <<EOF
 bin
@@ -174,6 +176,7 @@ sudo mv /tmp/agora.root.hidden /.hidden
 
 cat > $HOME/.xinitrc <<EOF
 wmaker &
+make_services
 exec GWorkspace
 EOF
 
@@ -186,5 +189,7 @@ EOF
 [ -d /usr/local/etc ] || (sudo mkdir -p /usr/local/etc/profile.d)
 [ -f /usr/local/etc/profile ] || (sudo ln -sf /etc/profile /usr/local/etc/profile)
 [ -f /usr/local/etc/profile.d/GNUstep.sh ] || (sudo ln -sf `gnustep-config --variable=GNUSTEP_MAKEFILES`/GNUstep.sh /usr/local/etc/profile.d/GNUstep.sh)
+
+make_services
 
 echo "The Agora Desktop is now installed. You will find the source code under $HOME/Development/Agora."
