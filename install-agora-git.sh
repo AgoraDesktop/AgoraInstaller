@@ -176,6 +176,7 @@ sudo mv /tmp/agora.root.hidden /.hidden
 
 cat > $HOME/.xinitrc <<EOF
 wmaker &
+make_services
 exec GWorkspace
 EOF
 
@@ -188,5 +189,7 @@ EOF
 [ -x /usr/local/etc ] || (sudo mkdir -p /usr/local/etc/profile.d)
 [ -x /usr/local/etc/profile ] || (sudo ln -sf /etc/profile /usr/local/etc/profile)
 [ -x /usr/local/etc/profile.d/GNUstep.sh ] || (sudo ln -sf `gnustep-config --variable=GNUSTEP_MAKEFILES`/GNUstep.sh /usr/local/etc/profile.d/GNUstep.sh)
+
+make_services
 
 echo "The Agora Desktop is now installed. You will find the source code under $HOME/Development/Agora."
