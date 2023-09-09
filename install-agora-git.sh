@@ -144,7 +144,9 @@ defaults write NSGlobalDomain NSInterfaceStyleDefault NSMacintoshInterfaceStyle
 defaults write NSGlobalDomain NSMenuInterfaceStyle NSMacintoshInterfaceStyle
 
 defaults write NSGlobalDomain GSFileBrowserHideDotFiles YES
+
 defaults write GWorkspace GSSuppressAppIcon YES
+defaults write GWorkspace dockstyle '<*I1>'
 
 cat > /tmp/agora.root.hidden <<EOF
 bin
