@@ -24,7 +24,8 @@ cd $AGORA_HOME
 # install prerequisites
 sudo pkg install bash gmake cmake libffcall libxml2 libxslt openssl git \
     libiconv giflib aspell cups libaudiofile portaudio libart_lgpl \
-    windowmaker cairo libsvg-cairo harfbuzz-cairo libdispatch icu xorg
+    windowmaker cairo libsvg-cairo harfbuzz-cairo libdispatch icu xorg \
+    numlockx
 
 # install gnustep-make (First pass)
 [ -d "tools-make" ] || git clone https://github.com/AgoraDesktop/tools-make.git
@@ -173,6 +174,7 @@ EOF
 sudo mv /tmp/agora.root.hidden /.hidden
 
 cat > $HOME/.xinitrc <<EOF
+numlockx on &
 wmaker &
 exec GWorkspace
 EOF
