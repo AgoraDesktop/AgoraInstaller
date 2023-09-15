@@ -25,7 +25,7 @@ cd $AGORA_HOME
 sudo pkg install bash gmake cmake libffcall libxml2 libxslt openssl git \
     libiconv giflib aspell cups libaudiofile portaudio libart_lgpl \
     windowmaker cairo libsvg-cairo harfbuzz-cairo libdispatch icu xorg \
-    numlockx
+    numlockx zsh
 
 # install gnustep-make (First pass)
 [ -d "tools-make" ] || git clone https://github.com/AgoraDesktop/tools-make.git
@@ -145,7 +145,9 @@ defaults write NSGlobalDomain NSInterfaceStyleDefault NSMacintoshInterfaceStyle
 defaults write NSGlobalDomain NSMenuInterfaceStyle NSMacintoshInterfaceStyle
 
 defaults write NSGlobalDomain GSFileBrowserHideDotFiles YES
+
 defaults write GWorkspace GSSuppressAppIcon YES
+defaults write GWorkspace dockstyle '<*I1>'
 
 cat > /tmp/agora.root.hidden <<EOF
 bin
@@ -176,6 +178,7 @@ sudo mv /tmp/agora.root.hidden /.hidden
 cat > $HOME/.xinitrc <<EOF
 numlockx on &
 wmaker &
+make_services
 exec GWorkspace
 EOF
 
@@ -184,9 +187,23 @@ nohup.out
 GNUstep
 EOF
 
+#configure for zsh
+sudo cat > /tmp/agora.zprofile <<EOF
+for file in /usr/local/etc/zprofile.d/*.zsh; do
+	source "\$file"
+done
+EOF
+[ -d /usr/local/etc ] || (sudo mkdir /usr/local/etc)
+[ -d /usr/local/etc/zprofile.d ] || (sudo mkdir /usr/local/etc/zprofile.d)
+[ -f /usr/local/etc/zprofile ] || (sudo mv /tmp/agora.zprofile /usr/local/etc/zprofile)
+sudo ln -sf `gnustep-config --variable=GNUSTEP_MAKEFILES`/GNUstep.sh /usr/local/etc/zprofile.d/GNUstep.zsh
 
-[ -d /usr/local/etc ] || (sudo mkdir -p /usr/local/etc/profile.d)
+#configure for sh and bash
+[ -d /usr/local/etc ] || (sudo mkdir /usr/local/etc)
+[ -d /usr/local/etc/profile.d ] || (sudo mkdir /usr/local/etc/profile.d)
 [ -f /usr/local/etc/profile ] || (sudo ln -sf /etc/profile /usr/local/etc/profile)
 [ -f /usr/local/etc/profile.d/GNUstep.sh ] || (sudo ln -sf `gnustep-config --variable=GNUSTEP_MAKEFILES`/GNUstep.sh /usr/local/etc/profile.d/GNUstep.sh)
+
+make_services
 
 echo "The Agora Desktop is now installed. You will find the source code under $HOME/Development/Agora."
