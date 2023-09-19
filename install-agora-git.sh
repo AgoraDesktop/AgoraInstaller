@@ -117,12 +117,14 @@ cd $AGORA_HOME
 
 
 # install Agora theme(s)
+[ -d "/System/Library/Themes" ] || sudo mkdir -p /System/Library/Themes
 [ -d "agora-themes"] || git clone https://github.com/AgoraDesktop/agora-themes.git
 cd agora-themes
 git pull --rebase --autostash
-[ -d "/Library/Themes" ] || sudo mkdir /Library/Themes
-sudo rm -rf /Library/Themes/Argentum.theme
-sudo cp -R Argentum.theme /Library/Themes/Argentum.theme
+cd Argentum
+gmake -j`nproc`
+sudo gmake install
+gmake clean
 cd $AGORA_HOME
 
 # install Terminal.app
