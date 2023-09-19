@@ -115,7 +115,17 @@ sudo gmake install
 gmake clean
 cd $AGORA_HOME
 
-#install Terminal.app
+
+# install Agora theme(s)
+[ -d "agora-themes"] || git clone https://github.com/AgoraDesktop/agora-themes.git
+cd agora-themes
+git pull --rebase --autostash
+[ -d "/Library/Themes" ] || sudo mkdir /Library/Themes
+sudo rm -rf /Library/Themes/Argentum.theme
+sudo cp -R Argentum.theme /Library/Themes/Argentum.theme
+cd $AGORA_HOME
+
+# install Terminal.app
 [ -d "apps-terminal" ] || git clone https://github.com/AgoraDesktop/apps-terminal.git
 cd apps-terminal
 git pull --rebase --autostash
@@ -144,6 +154,8 @@ defaults write NSGlobalDomain NSInterfaceStyleDefault NSMacintoshInterfaceStyle
 defaults write NSGlobalDomain NSMenuInterfaceStyle NSMacintoshInterfaceStyle
 
 defaults write NSGlobalDomain GSFileBrowserHideDotFiles YES
+
+defaults write NSGlobalDomain GSTheme Argentum
 
 defaults write GWorkspace GSSuppressAppIcon YES
 defaults write GWorkspace dockstyle '<*I1>'
@@ -177,7 +189,7 @@ sudo mv /tmp/agora.root.hidden /.hidden
 cat > $HOME/.xinitrc <<EOF
 wmaker &
 make_services
-exec GWorkspace
+exec /System/Library/CoreServices/GWorkspace.app/GWorkspace
 EOF
 
 cat > $HOME/.hidden <<EOF
